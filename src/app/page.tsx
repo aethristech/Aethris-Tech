@@ -505,7 +505,7 @@ const Contact = () => (
         {[
           { label: "WhatsApp Principal", val: "+244 942 766 486", icon: "ti-brand-whatsapp", link: "https://wa.me/244942766486", color: "hover:bg-emerald-500/10" },
           { label: "LinkedIn Official", val: "Aethris Tech", icon: "ti-brand-linkedin", link: "https://linkedin.com/company/aethristech", color: "hover:bg-blue-500/10" },
-          { label: "Instagram", val: "@aethris.tech", icon: "ti-brand-instagram", link: "https://instagram.com/aethris.tech", color: "hover:bg-pink-500/10" },
+          { label: "Instagram", val: "@aethris_tech", icon: "ti-brand-instagram", link: "https://www.instagram.com/aethris_tech?igsh=Z29lZGd4MzNhcXh2", color: "hover:bg-pink-500/10" },
           { label: "Email Corporativo", val: "aethristech@gmail.com", icon: "ti-mail", link: "mailto:aethristech@gmail.com", color: "hover:bg-cobalt/10" },
           { label: "Localização", val: "Huíla, Angola", icon: "ti-map-pin", link: "#", color: "hover:bg-white/10" },
           { label: "Suporte 24/7", val: "Atendimento Prioritário", icon: "ti-headset", link: "https://wa.me/244942766486", color: "hover:bg-cyan/10" },
