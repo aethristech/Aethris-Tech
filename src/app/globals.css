@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-ui: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Logo Palette: Silver/Grey/Black */
+  --bg-aether: #050816;
+  --black-deep: #02040a;
+  --black-light: #0B1020;
+  --silver: #9CA3AF;
+  --silver-lightest: #ffffff;
+  --silver-mid: rgba(255, 255, 255, 0.05);
+  --silver-dark: #6B7280;
+  --charcoal: #111827;
+  --cobalt: #2E5BFF;
+  --cyan: #00F5FF;
+  --violet: #8B5CF6;
+}
+
+:root {
+  --bg-aether: #020408;
+  --black-deep: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: #050816;
+  color: #ffffff;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::before {
+  content: '';
+  position: fixed; 
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #020408; }
+::-webkit-scrollbar-thumb { background: #6B7280; border-radius: 2px; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── UTILITIES ─── */
+.font-display { font-family: var(--font-display); }
+.font-ui { font-family: var(--font-ui); }
+
+.bg-aether-grid {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-aether-grid::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(46, 91, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 91, 255, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 100%);
+  z-index: -1;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+@keyframes scan {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+  85% { opacity: 1; }
+  90% { opacity: 0.7; }
+}
+
+.animate-flicker {
+  animation: flicker 4s linear infinite;
+}
+
+.glass-card {
+  background: rgba(11, 16, 32, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.glass-card:hover {
+  background: rgba(11, 16, 32, 0.8);
+  border-color: rgba(46, 91, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(46, 91, 255, 0.1);
+  transform: translateY(-5px);
+}
+
+.glow-text-cobalt {
+  text-shadow: 0 0 10px rgba(46, 91, 255, 0.3);
+}
+
+.glow-text-cyan {
+  text-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+}
+
+.bg-orb-cobalt {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(46, 91, 255, 0.12) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-orb-cyan {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card-hover-aether {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.card-hover-aether:hover {
+  background: white;
+  transform: translateY(-2px);
+}

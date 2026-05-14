@@ -1,0 +1,14 @@
+{
+  "app\\page.tsx -> @/components/GlobeMap": {
+    "id": "app\\page.tsx -> @/components/GlobeMap",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_GlobeMap_tsx.js"
+    ]
+  },
+  "components\\GlobeMap.tsx -> react-globe.gl": {
+    "id": "components\\GlobeMap.tsx -> react-globe.gl",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-globe_gl_dist_react-globe_gl_mjs.js"
+    ]
+  }
+}

@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aethris Tech — Beyond the ordinary.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --silver-lightest: #F7F7F7;
+  --silver-light: #EFEFEF;
+  --silver: #E0E0E0;
+  --silver-mid: #C8C8C8;
+  --silver-dark: #A0A0A0;
+  --silver-darker: #787878;
+  --black: #0A0A0A;
+  --black-soft: #1A1A1A;
+  --black-light: #2A2A2A;
+  --charcoal: #3A3A3A;
+  --white: #FFFFFF;
+  --accent: #1A1A1A;
+  --bg: #EBEBEB;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-ui: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--silver-light); }
+::-webkit-scrollbar-thumb { background: var(--silver-darker); border-radius: 2px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 4rem;
+  background: rgba(235,235,235,0.82);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  transition: padding 0.3s ease;
+}
+nav.scrolled { padding: 1rem 4rem; }
+
+.nav-logo {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.18em;
+  color: var(--black);
+  text-transform: uppercase;
+  text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo-symbol {
+  width: 32px; height: 32px;
+  background: var(--black);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-symbol svg { width: 18px; height: 18px; fill: var(--bg); }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+  background: var(--black); transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--black); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--silver-lightest);
+  padding: 0.6rem 1.4rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.nav-cta:hover { background: var(--charcoal); transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid background */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--silver-darker);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.2s forwards;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--silver-dark);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 13vw, 11rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--black);
+  margin-bottom: 0.2rem;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.4s forwards;
+}
+.hero-title span { font-style: italic; font-weight: 400; color: var(--silver-darker); }
+
+.hero-sub {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-top: 1.2rem;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.6s forwards;
+}
+
+.hero-tagline {
+  margin-top: 2.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--silver-darker);
+  font-weight: 300;
+  max-width: 480px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.8s forwards;
+}
+
+.hero-actions {
+  margin-top: 3rem;
+  display: flex; gap: 1rem; align-items: center;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 1s forwards;
+}
+.btn-primary {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--silver-lightest);
+  padding: 0.9rem 2.2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover { background: var(--charcoal); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+
+.btn-secondary {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border: 1px solid var(--silver-mid);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover { border-color: var(--black); color: var(--black); }
+
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeUp 1s ease 1.4s forwards;
+}
+.hero-scroll span {
+  font-family: var(--font-ui); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver-darker);
+}
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, var(--silver-darker), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+
+/* ─── SECTION SHARED ─── */
+section { padding: 7rem 4rem; position: relative; }
+
+.section-label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--silver-darker);
+  margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--silver-dark); }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--black);
+  margin-bottom: 1.5rem;
+}
+.section-title em { font-style: italic; color: var(--silver-darker); }
+
+.section-desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--charcoal);
+  line-height: 1.8;
+  max-width: 520px;
+  font-weight: 300;
+}
+
+/* ─── ABOUT ─── */
+#about { background: var(--black); color: var(--silver-light); }
+#about .section-label { color: var(--silver-dark); }
+#about .section-label::before { background: var(--silver-dark); }
+#about .section-title { color: var(--silver-lightest); }
+#about .section-title em { color: var(--silver-dark); }
+#about .section-desc { color: var(--silver-mid); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  max-width: 1200px; margin: 0 auto;
+}
+.about-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.about-stat {
+  background: var(--black);
+  padding: 2rem;
+  text-align: center;
+}
+.about-stat-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--silver-lightest);
+  display: block;
+}
+.about-stat-label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--silver-dark);
+  margin-top: 0.5rem;
+  display: block;
+}
+.name-origin {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+.name-origin p {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--silver-mid);
+  line-height: 1.7;
+}
+.name-origin cite {
+  display: block;
+  margin-top: 0.8rem;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--silver-dark);
+  font-style: normal;
+}
+
+/* ─── MVV ─── */
+#mvv { background: var(--silver-lightest); }
+.mvv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--silver-mid);
+  max-width: 1200px; margin: 3rem auto 0;
+}
+.mvv-card {
+  background: var(--silver-lightest);
+  padding: 3rem 2.5rem;
+  position: relative;
+  transition: background 0.3s ease;
+}
+.mvv-card:hover { background: var(--white); }
+.mvv-card-num {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 300;
+  color: var(--silver);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.mvv-card h3 {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver-darker);
+  margin-bottom: 1rem;
+}
+.mvv-card p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* ─── VALUES ─── */
+.values-section {
+  padding: 4rem 4rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.values-title {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--silver-darker);
+  margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.values-title::before { content: ''; display: block; width: 30px; height: 1px; background: var(--silver-dark); }
+.values-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.value-tag {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--silver-mid);
+  color: var(--charcoal);
+  padding: 0.65rem 1.4rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.value-tag:hover { background: var(--black); color: var(--silver-lightest); border-color: var(--black); }
+
+/* ─── SERVICES ─── */
+#services { background: var(--bg); padding-top: 5rem; }
+.services-header { max-width: 1200px; margin: 0 auto 4rem; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--silver-mid);
+  max-width: 1200px; margin: 0 auto;
+}
+.service-card {
+  background: var(--silver-lightest);
+  padding: 2.5rem 2rem;
+  transition: all 0.35s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--black);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.service-card:hover { background: var(--white); }
+.service-card:hover::after { transform: scaleX(1); }
+.service-icon {
+  width: 44px; height: 44px;
+  border: 1px solid var(--silver-mid);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+.service-card:hover .service-icon { background: var(--black); border-color: var(--black); }
+.service-icon svg { width: 20px; height: 20px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; transition: stroke 0.3s; }
+.service-card:hover .service-icon svg { stroke: var(--silver-lightest); }
+.service-card h3 {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+.service-card ul { list-style: none; }
+.service-card ul li {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--charcoal);
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--silver-light);
+  font-weight: 300;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.service-card ul li::before { content: '—'; color: var(--silver-dark); flex-shrink: 0; }
+.service-card ul li:last-child { border-bottom: none; }
+
+/* ─── SECTORS ─── */
+#sectors { background: var(--black); padding: 7rem 4rem; }
+#sectors .section-label { color: var(--silver-dark); }
+#sectors .section-label::before { background: var(--silver-dark); }
+#sectors .section-title { color: var(--silver-lightest); }
+.sectors-header { max-width: 1200px; margin: 0 auto 4rem; }
+.sectors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  max-width: 1200px; margin: 0 auto;
+}
+.sector-card {
+  background: var(--black);
+  padding: 2.5rem 2rem;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.sector-card:hover { background: var(--black-light); border-color: rgba(255,255,255,0.12); }
+.sector-num {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 1rem;
+}
+.sector-card h3 {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--silver-lightest);
+  margin-bottom: 0.7rem;
+}
+.sector-card p {
+  font-family: var(--font-body);
+  font-size: 0.87rem;
+  color: var(--silver-dark);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ─── CONTACT ─── */
+#contact { background: var(--silver-lightest); }
+.contact-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+}
+.contact-info { }
+.contact-details { margin-top: 3rem; display: flex; flex-direction: column; gap: 1px; }
+.contact-item {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--silver-light);
+  transition: background 0.2s;
+}
+.contact-item:hover { background: var(--silver); }
+.contact-item-icon {
+  width: 36px; height: 36px;
+  background: var(--black);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-item-icon svg { width: 16px; height: 16px; stroke: var(--silver-lightest); fill: none; stroke-width: 1.5; }
+.contact-item-text { font-family: var(--font-body); font-size: 0.9rem; color: var(--charcoal); font-weight: 400; }
+.contact-item-label { font-family: var(--font-ui); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--silver-darker); margin-bottom: 2px; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--silver-darker);
+}
+.form-group input, .form-group textarea, .form-group select {
+  background: var(--silver-light);
+  border: 1px solid var(--silver-mid);
+  border-radius: 3px;
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--black);
+  outline: none;
+  transition: all 0.2s;
+  font-weight: 300;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--black);
+  background: var(--white);
+}
+.form-group textarea { min-height: 120px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-submit {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--silver-lightest);
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+.form-submit:hover { background: var(--charcoal); transform: translateY(-2px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  padding: 3rem 4rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: var(--silver-lightest);
+  text-transform: uppercase;
+}
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--silver-dark);
+}
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--silver-darker);
+  font-weight: 300;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav { padding: 1.2rem 2rem; }
+  .nav-links { display: none; }
+  section { padding: 5rem 2rem; }
+  .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .mvv-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: repeat(2,1fr); }
+  .sectors-grid { grid-template-columns: 1fr 1fr; }
+  #sectors { padding: 5rem 2rem; }
+  footer { padding: 2rem; }
+  .footer-inner { flex-direction: column; text-align: center; gap: 0.6rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .values-section { padding: 2rem; }
+}
+@media(max-width:600px){
+  .services-grid { grid-template-columns: 1fr; }
+  .sectors-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-symbol">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    Aethris Tech
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#mvv">Missão</a></li>
+    <li><a href="#services">Serviços</a></li>
+    <li><a href="#sectors">Sectores</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Falar connosco</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Inteligência Artificial & Tecnologia</div>
+  <h1 class="hero-title">Aethris<br/><span>Tech</span></h1>
+  <p class="hero-sub">Beyond the ordinary.</p>
+  <p class="hero-tagline">Construímos sistemas inteligentes, aplicações e soluções tecnológicas que elevam o nível das empresas e pessoas em Angola e em África.</p>
+  <div class="hero-actions">
+    <a href="#services" class="btn-primary">Ver Serviços</a>
+    <a href="#contact" class="btn-secondary">Contactar</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">Sobre a empresa</div>
+      <h2 class="section-title">Tecnologia no seu<br/><em>nível mais elevado</em></h2>
+      <p class="section-desc">A Aethris Tech é uma empresa angolana de tecnologia e inteligência artificial, fundada com o propósito de construir soluções digitais que transformam a forma como as empresas e pessoas operam.</p>
+      <div class="name-origin">
+        <p>"Aethris vem do grego antigo Aether — o elemento superior, a essência mais pura do universo. É assim que construímos os nossos sistemas."</p>
+        <cite>— Origem do nome</cite>
+      </div>
+    </div>
+    <div>
+      <div class="about-right">
+        <div class="about-stat">
+          <span class="about-stat-num">8+</span>
+          <span class="about-stat-label">Áreas de Serviço</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">AI</span>
+          <span class="about-stat-label">First Company</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">6+</span>
+          <span class="about-stat-label">Sectores</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">AO</span>
+          <span class="about-stat-label">Luanda, Angola</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MVV -->
+<section id="mvv">
+  <div style="max-width:1200px;margin:0 auto 0;">
+    <div class="section-label reveal">Propósito</div>
+    <h2 class="section-title reveal">Missão, Visão<br/><em>& Valores</em></h2>
+  </div>
+  <div class="mvv-grid reveal">
+    <div class="mvv-card">
+      <div class="mvv-card-num">01</div>
+      <h3>Missão</h3>
+      <p>Desenvolver sistemas inteligentes, aplicações e soluções tecnológicas que transformam a forma como as empresas e pessoas operam, tornando a tecnologia acessível e eficiente para todos.</p>
+    </div>
+    <div class="mvv-card">
+      <div class="mvv-card-num">02</div>
+      <h3>Visão</h3>
+      <p>Ser a empresa de referência em inteligência artificial e tecnologia em Angola e em África, reconhecida pela excelência, inovação e pelo impacto real nas vidas das pessoas e negócios.</p>
+    </div>
+    <div class="mvv-card">
+      <div class="mvv-card-num">03</div>
+      <h3>Propósito</h3>
+      <p>Elevar o nível tecnológico de Angola, criando soluções que antes pareciam impossíveis, provando que a inovação de classe mundial pode nascer em território angolano.</p>
+    </div>
+  </div>
+
+  <div class="values-section reveal">
+    <div class="values-title">Os nossos valores</div>
+    <div class="values-tags">
+      <span class="value-tag">Inovação</span>
+      <span class="value-tag">Integridade</span>
+      <span class="value-tag">Excelência</span>
+      <span class="value-tag">Colaboração</span>
+      <span class="value-tag">Transparência</span>
+      <span class="value-tag">Responsabilidade</span>
+      <span class="value-tag">Melhoria Contínua</span>
+      <span class="value-tag">Impacto Real</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-label reveal">O que fazemos</div>
+    <h2 class="section-title reveal">Serviços &<br/><em>Soluções</em></h2>
+  </div>
+  <div class="services-grid reveal">
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 4-3 6-3 9H8c0-3-3-5-3-9a7 7 0 0 1 7-7z"/><path d="M9 21h6"/><path d="M9.5 17.5c.5-1 1.5-2 2.5-3s2-2 2.5-3"/></svg>
+      </div>
+      <h3>Inteligência Artificial</h3>
+      <ul>
+        <li>Modelos de IA personalizados</li>
+        <li>Automação inteligente de processos</li>
+        <li>Chatbots e assistentes virtuais</li>
+        <li>Diagnóstico e resolução de bugs de IA</li>
+        <li>Análise preditiva e machine learning</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+      </div>
+      <h3>Desenvolvimento de Apps</h3>
+      <ul>
+        <li>Aplicações Android & iOS</li>
+        <li>Apps web progressivas (PWA)</li>
+        <li>Plataformas web completas</li>
+        <li>Integração com APIs externas</li>
+        <li>Manutenção e suporte</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h3>Sistemas & Software</h3>
+      <ul>
+        <li>Sistemas ERP e CRM</li>
+        <li>Facturação e inventário</li>
+        <li>Plataformas e-commerce</li>
+        <li>Dashboards e relatórios</li>
+        <li>Modernização de sistemas</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      </div>
+      <h3>Criação de Sites</h3>
+      <ul>
+        <li>Sites institucionais</li>
+        <li>Landing pages e portfólios</li>
+        <li>Lojas online</li>
+        <li>Optimização SEO</li>
+        <li>Manutenção contínua</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Cibersegurança</h3>
+      <ul>
+        <li>Auditoria de vulnerabilidades</li>
+        <li>Protecção de redes e sistemas</li>
+        <li>Gestão de identidade e acessos</li>
+        <li>Monitorização de ameaças</li>
+        <li>Formação em segurança digital</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>
+      </div>
+      <h3>Redes & Infraestrutura</h3>
+      <ul>
+        <li>Redes LAN e WAN</li>
+        <li>Configuração de servidores</li>
+        <li>VPN e acesso remoto seguro</li>
+        <li>Firewalls e roteadores</li>
+        <li>Suporte e manutenção</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      </div>
+      <h3>Cloud & DevOps</h3>
+      <ul>
+        <li>Migração para a nuvem</li>
+        <li>Gestão de servidores cloud</li>
+        <li>Pipelines CI/CD</li>
+        <li>Backups automáticos</li>
+        <li>Escalabilidade e performance</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Soluções para Empresas</h3>
+      <ul>
+        <li>Consultoria tecnológica</li>
+        <li>Transformação digital</li>
+        <li>Automação de workflows</li>
+        <li>Integração de sistemas</li>
+        <li>Formação de equipas</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section id="sectors">
+  <div class="sectors-header">
+    <div class="section-label">Onde actuamos</div>
+    <h2 class="section-title">Sectores de<br/><em style="color:var(--silver-dark)">Actuação</em></h2>
+  </div>
+  <div class="sectors-grid reveal">
+    <div class="sector-card">
+      <div class="sector-num">01</div>
+      <h3>Finanças & Banca</h3>
+      <p>Sistemas seguros e robustos para instituições financeiras, bancos e fintechs angolanas.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-num">02</div>
+      <h3>Saúde</h3>
+      <p>Plataformas de gestão clínica, telemedicina e diagnóstico assistido por inteligência artificial.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-num">03</div>
+      <h3>Educação</h3>
+      <p>Sistemas de aprendizagem online, gestão escolar e plataformas educativas digitais.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-num">04</div>
+      <h3>Retalho & Comércio</h3>
+      <p>E-commerce, gestão de inventário, fidelização de clientes e análise de dados de vendas.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-num">05</div>
+      <h3>Logística</h3>
+      <p>Rastreio em tempo real, optimização de rotas e gestão de frotas com inteligência artificial.</p>
+    </div>
+    <div class="sector-card">
+      <div class="sector-num">06</div>
+      <h3>Governo & Estado</h3>
+      <p>Plataformas de serviços públicos digitais, e-gov e sistemas de gestão para entidades públicas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label reveal">Fale connosco</div>
+      <h2 class="section-title reveal">Vamos construir<br/><em>algo grande</em></h2>
+      <p class="section-desc reveal">Tem um projecto em mente? Quer saber mais sobre os nossos serviços? Entre em contacto e a nossa equipa responde rapidamente.</p>
+      <div class="contact-details reveal">
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">Localização</div>
+            <div class="contact-item-text">Luanda, Angola</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-text">geral@aethristech.ao</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+          </div>
+          <div>
+            <div class="contact-item-label">Website</div>
+            <div class="contact-item-text">www.aethristech.ao</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" placeholder="O seu nome"/>
+          </div>
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" placeholder="Nome da empresa"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="email@empresa.ao"/>
+        </div>
+        <div class="form-group">
+          <label>Serviço de Interesse</label>
+          <select>
+            <option value="">Seleccione um serviço</option>
+            <option>Inteligência Artificial</option>
+            <option>Desenvolvimento de Apps</option>
+            <option>Sistemas & Software</option>
+            <option>Criação de Sites</option>
+            <option>Cibersegurança</option>
+            <option>Redes & Infraestrutura</option>
+            <option>Cloud & DevOps</option>
+            <option>Soluções para Empresas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea placeholder="Descreva o seu projecto ou questão..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">Enviar Mensagem</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Aethris Tech</div>
+    <div class="footer-tagline">"Beyond the ordinary."</div>
+    <div class="footer-copy">© 2025 Aethris Tech, Unipessoal, Lda. — Luanda, Angola</div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Mensagem enviada ✓';
+  btn.style.background = '#2A2A2A';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Enviar Mensagem';
+    btn.style.background = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 3000);
+}
+</script>
+</body>
+</html>
