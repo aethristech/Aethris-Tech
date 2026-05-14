@@ -71,7 +71,8 @@ const ParticleBackground = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       particles = [];
-      for (let i = 0; i < 100; i++) particles.push(new Particle(canvas.width, canvas.height));
+      const count = window.innerWidth < 768 ? 40 : 80; // Fewer particles on mobile
+      for (let i = 0; i < count; i++) particles.push(new Particle(canvas.width, canvas.height));
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -81,24 +82,33 @@ const ParticleBackground = () => {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p, i) => {
+      const connectionDist = 150;
+      const mouseDist = 200;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
         p.update(canvas.width, canvas.height);
         p.draw(ctx);
+        
+        // Optimize connection loop: only check particles with higher index
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(46, 91, 255, ${0.3 * (1 - dist / 150)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
+          // Avoid sqrt for distance check if possible, or only do it if within bounds
+          if (Math.abs(dx) < connectionDist && Math.abs(dy) < connectionDist) {
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < connectionDist) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(46, 91, 255, ${0.2 * (1 - dist / connectionDist)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
           }
         }
-      });
+      }
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -200,7 +210,7 @@ const Hero = () => (
 );
 
 const About = () => (
-  <section id="sobre" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep text-silver-light">
+  <section id="sobre" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep text-silver-light content-visibility-auto">
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
       <div>
         <div className="reveal flex items-center gap-3 text-white/60 font-ui text-[11px] font-bold tracking-[0.28em] uppercase mb-6">
@@ -238,7 +248,7 @@ const About = () => (
 );
 
 const Mission = () => (
-  <section id="missão" className="py-24 md:py-32 px-6 md:px-16 bg-black">
+  <section id="missão" className="py-24 md:py-32 px-6 md:px-16 bg-black content-visibility-auto">
     <div className="max-w-7xl mx-auto">
       <div className="reveal flex items-center gap-3 text-white/60 font-ui text-[11px] font-bold tracking-[0.28em] uppercase mb-6">
         <div className="w-8 h-[1px] bg-cobalt" />
@@ -275,7 +285,7 @@ const Mission = () => (
 );
 
 const Services = () => (
-  <section id="serviços" className="relative py-24 md:py-32 px-6 md:px-16 bg-black-deep overflow-hidden">
+  <section id="serviços" className="relative py-24 md:py-32 px-6 md:px-16 bg-black-deep overflow-hidden content-visibility-auto">
     <div className="bg-orb-cobalt top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20" />
     <div className="max-w-7xl mx-auto">
       <div className="reveal text-center mb-20">
@@ -308,7 +318,7 @@ const Services = () => (
 );
 
 const StatsSection = () => (
-  <section className="py-24 md:py-32 px-6 md:px-16 bg-black">
+  <section className="py-24 md:py-32 px-6 md:px-16 bg-black content-visibility-auto">
     <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
       <div className="flex-1 text-left">
         <p className="font-ui text-[11px] font-bold tracking-[0.3em] uppercase text-cobalt mb-6">Padrão de Excelência</p>
@@ -349,7 +359,7 @@ const StatsSection = () => (
 );
 
 const MapSection = () => (
-  <section className="py-24 md:py-32 px-6 md:px-16 bg-black-deep relative overflow-hidden">
+  <section className="py-24 md:py-32 px-6 md:px-16 bg-black-deep relative overflow-hidden content-visibility-auto">
     <div className="bg-orb-cobalt top-0 right-0 opacity-20" />
     <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
       <div className="flex-1 text-left z-10">
@@ -387,7 +397,7 @@ const MapSection = () => (
 );
 
 const Sectors = () => (
-  <section id="sectores" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep">
+  <section id="sectores" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep content-visibility-auto">
     <div className="max-w-7xl mx-auto">
       <div className="reveal flex items-center gap-3 text-black font-ui text-[11px] font-bold tracking-[0.28em] uppercase mb-6">
         <div className="w-8 h-[1px] bg-cobalt" />
@@ -480,7 +490,7 @@ const AdditionalServices = () => (
 );
 
 const Contact = () => (
-  <section id="contacto" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep overflow-hidden relative">
+  <section id="contacto" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep overflow-hidden relative content-visibility-auto">
     <div className="bg-orb-cobalt -bottom-64 -right-64 opacity-20" />
     <div className="max-w-7xl mx-auto">
       <div className="reveal flex items-center gap-3 text-white/60 font-ui text-[11px] font-bold tracking-[0.28em] uppercase mb-6">
