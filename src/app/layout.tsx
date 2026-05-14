@@ -24,23 +24,26 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Aethris Tech — Além do comum.",
+  title: "Aethris Tech",
   description:
     "Empresa de tecnologia e inteligência artificial. Criamos sistemas que elevam o nível dos negócios em Angola e em África.",
+  icons: {
+    icon: "/Logo.jpg",
+  },
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt" className={`${cormorant.variable} ${dmSans.variable} ${syne.variable} scroll-smooth`}>
+    <html lang="pt" suppressHydrationWarning className={`${cormorant.variable} ${dmSans.variable} ${syne.variable} scroll-smooth`}>
       <head>
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body suppressHydrationWarning className="antialiased">{children}</body>
     </html>
   );
 }

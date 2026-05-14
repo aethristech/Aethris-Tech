@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
 import Image from "next/image";
 
@@ -129,8 +129,7 @@ const Navbar = () => (
         style={{ maskImage: "url(/logo.png)", maskSize: "contain", maskRepeat: "no-repeat", WebkitMaskImage: "url(/logo.png)", WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat" }}
       />
       <div className="flex flex-col">
-        <span className="font-display font-bold text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-cobalt-light to-white">AethrisTech</span>
-        <span className="font-display text-sm italic text-white tracking-widest">Além do comum</span>
+        <span className="font-display font-bold text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-cobalt-light to-white">Aethris Tech</span>
       </div>
     </a>
     <ul className="hidden lg:flex gap-10 list-none">
@@ -482,70 +481,37 @@ const AdditionalServices = () => (
 );
 
 const Contact = () => (
-  <section id="contacto" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep">
-    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-      <div>
-        <div className="reveal flex items-center gap-3 text-white/60 font-ui text-[11px] font-bold tracking-[0.28em] uppercase mb-6">
-          <div className="w-8 h-[1px] bg-cobalt" />
-          Fale Connosco
-        </div>
-        <h2 className="reveal font-display text-5xl md:text-8xl font-light leading-[1.05] text-white mb-10">
-          Vamos elevar o seu<br /><span className="italic text-cobalt">negócio</span>
-        </h2>
-        <div className="reveal flex flex-col gap-[2px] bg-white/5 border border-white/5 mt-12">
-          {[
-            { label: "Localização", val: "Huíla, Angola", icon: "ti-map-pin", link: "#" },
-            { label: "WhatsApp", val: "+244 942 766 486", icon: "ti-brand-whatsapp", link: "https://wa.me/244942766486" },
-            { label: "LinkedIn", val: "Aethris Tech Official", icon: "ti-brand-linkedin", link: "https://linkedin.com/company/aethristech" },
-            { label: "Instagram", val: "@aethris.tech", icon: "ti-brand-instagram", link: "https://instagram.com/aethris.tech" },
-            { label: "Email", val: "geral@aethristech.ao", icon: "ti-mail", link: "mailto:geral@aethristech.ao" },
-          ].map((item) => (
-            <a key={item.label} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 p-6 bg-black-light/60 hover:bg-black-light transition-colors no-underline group border border-white/5 hover:border-cobalt/20">
-              <div className="w-11 h-11 bg-white/5 rounded flex items-center justify-center shrink-0 group-hover:bg-cobalt transition-colors">
-                <i className={`ti ${item.icon} text-xl text-white`} />
-              </div>
-              <div>
-                <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-1.5">{item.label}</p>
-                <p className="font-body text-sm text-white font-bold group-hover:text-cobalt transition-colors">{item.val}</p>
-              </div>
-            </a>
-          ))}
-        </div>
+  <section id="contacto" className="py-24 md:py-32 px-6 md:px-16 bg-black-deep overflow-hidden relative">
+    <div className="bg-orb-cobalt -bottom-64 -right-64 opacity-20" />
+    <div className="max-w-7xl mx-auto">
+      <div className="reveal flex items-center gap-3 text-white/60 font-ui text-[11px] font-bold tracking-[0.28em] uppercase mb-6">
+        <div className="w-8 h-[1px] bg-cobalt" />
+        Fale Connosco
       </div>
-      <div className="reveal bg-black-light p-10 md:p-12 shadow-2xl border border-white/5">
-        <form className="flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
-            <label className="font-ui text-[10px] font-bold uppercase tracking-widest text-white/40">Nome Completo</label>
-            <input type="text" className="bg-white/5 border border-white/10 rounded-sm p-4 font-body text-sm text-white outline-none focus:border-cobalt transition-all" placeholder="Seu nome" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex flex-col gap-2">
-              <label className="font-ui text-[10px] font-bold uppercase tracking-widest text-white/40">Email</label>
-              <input type="email" className="bg-white/5 border border-white/10 rounded-sm p-4 font-body text-sm text-white outline-none focus:border-cobalt transition-all" placeholder="seu@email.com" />
+      <h2 className="reveal font-display text-5xl md:text-8xl font-light leading-[1.05] text-white mb-16">
+        Canais de<br /><span className="italic text-cobalt">Atendimento</span>
+      </h2>
+      
+      <div className="reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/5 border border-white/5">
+        {[
+          { label: "WhatsApp Principal", val: "+244 942 766 486", icon: "ti-brand-whatsapp", link: "https://wa.me/244942766486", color: "hover:bg-emerald-500/10" },
+          { label: "LinkedIn Official", val: "Aethris Tech", icon: "ti-brand-linkedin", link: "https://linkedin.com/company/aethristech", color: "hover:bg-blue-500/10" },
+          { label: "Instagram", val: "@aethris.tech", icon: "ti-brand-instagram", link: "https://instagram.com/aethris.tech", color: "hover:bg-pink-500/10" },
+          { label: "Email Corporativo", val: "aethristech@gmail.com", icon: "ti-mail", link: "mailto:aethristech@gmail.com", color: "hover:bg-cobalt/10" },
+          { label: "Localização", val: "Huíla, Angola", icon: "ti-map-pin", link: "#", color: "hover:bg-white/10" },
+          { label: "Suporte 24/7", val: "Atendimento Prioritário", icon: "ti-headset", link: "https://wa.me/244942766486", color: "hover:bg-cyan/10" },
+        ].map((item) => (
+          <a key={item.label} href={item.link} target="_blank" rel="noopener noreferrer" className={`flex flex-col p-12 bg-black-light/40 transition-all no-underline group border border-transparent ${item.color}`}>
+            <div className="w-14 h-14 bg-white/5 rounded-sm flex items-center justify-center mb-8 group-hover:bg-cobalt transition-all duration-500">
+              <i className={`ti ${item.icon} text-2xl text-white group-hover:scale-110 transition-transform`} />
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="font-ui text-[10px] font-bold uppercase tracking-widest text-white/40">Assunto</label>
-              <div className="relative">
-                <select className="w-full bg-white/5 border border-white/10 rounded-sm p-4 font-body text-sm text-white outline-none focus:border-cobalt transition-all appearance-none cursor-pointer">
-                  <option className="bg-black-deep text-white">IA & Cibersegurança</option>
-                  <option className="bg-black-deep text-white">Auditoria de Sistemas</option>
-                  <option className="bg-black-deep text-white">Consultoria de Defesa</option>
-                  <option className="bg-black-deep text-white">Outros</option>
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <i className="ti ti-chevron-down text-white/40" />
-                </div>
-              </div>
+            <p className="font-ui text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mb-3">{item.label}</p>
+            <p className="font-display text-xl text-white group-hover:text-cobalt transition-colors">{item.val}</p>
+            <div className="mt-8 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/20 group-hover:text-white transition-colors">
+              Conectar agora <i className="ti ti-arrow-right text-xs" />
             </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="font-ui text-[10px] font-bold uppercase tracking-widest text-white/40">Mensagem</label>
-            <textarea rows={5} className="bg-white/5 border border-white/10 rounded-sm p-4 font-body text-sm text-white outline-none focus:border-cobalt transition-all resize-none" placeholder="Como podemos ajudar?" />
-          </div>
-          <button type="submit" className="font-ui text-xs font-bold uppercase tracking-widest bg-cobalt text-white py-5 rounded-sm hover:bg-cobalt-dark transition-all self-start px-12 shadow-lg shadow-cobalt/20">
-            Enviar Mensagem
-          </button>
-        </form>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -560,8 +526,7 @@ const Footer = () => (
           style={{ maskImage: "url(/logo.png)", maskSize: "contain", maskRepeat: "no-repeat", WebkitMaskImage: "url(/logo.png)", WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat" }}
         />
         <div className="flex flex-col">
-          <div className="font-display font-bold text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-cobalt-light to-white">AethrisTech</div>
-          <div className="font-display text-xs italic text-white tracking-widest">Além do comum</div>
+          <div className="font-display font-bold text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-cobalt-light to-white">Aethris Tech</div>
         </div>
       </div>
       <p className="font-display italic text-white text-lg">Beyond the ordinary.</p>
