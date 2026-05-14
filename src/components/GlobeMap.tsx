@@ -19,9 +19,31 @@ const Globe = dynamic(() => import('react-globe.gl'), {
 
 const GlobeMap = () => {
   const globeRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [arcsData, setArcsData] = useState<ArcData[]>([]);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
   useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        setDimensions({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    
+    // Enable auto-rotation
+    if (globeRef.current) {
+      const controls = globeRef.current.controls();
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+      controls.enableZoom = false; // Disable zoom to prevent scroll issues on mobile
+    }
+
     // Sample data for cybersecurity arcs
     const data = [
       { startLat: 40.7128, startLng: -74.0060, endLat: 51.5074, endLng: -0.1278, color: ['#2E5BFF', '#00F5FF'] }, // NY -> London
@@ -30,18 +52,20 @@ const GlobeMap = () => {
       { startLat: -23.5505, startLng: -46.6333, endLat: 40.7128, endLng: -74.0060, color: ['#00F5FF', '#2E5BFF'] }, // São Paulo -> NY
     ];
     setArcsData(data);
+
+    return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
   return (
-    <div className="w-full h-full cursor-grab active:cursor-grabbing">
+    <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing flex items-center justify-center overflow-hidden transition-transform duration-700 hover:scale-105 touch-none">
       <Globe
         ref={globeRef}
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         backgroundColor="rgba(0,0,0,0)"
-        width={800}
-        height={600}
+        width={dimensions.width}
+        height={dimensions.height}
         
         // Arcs (Data flows)
         arcsData={arcsData}

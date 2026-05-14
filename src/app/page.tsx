@@ -177,17 +177,17 @@ const Hero = () => (
     <div className="reveal mt-auto w-full max-w-7xl flex flex-col md:flex-row items-end justify-end gap-10 z-10 pb-10">
       <div className="glass-card p-8 flex gap-12 border-white/10 rounded-sm">
         <div className="text-left">
-          <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">Ameaças Bloqueadas</p>
+          <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">Defesa de Rede</p>
           <div className="flex items-baseline gap-3">
-            <span className="font-display text-2xl font-bold text-white tracking-tight">24.817.992</span>
-            <span className="font-ui text-[10px] text-emerald-400 font-bold">+ 23%</span>
+            <span className="font-display text-2xl font-bold text-white tracking-tight uppercase">Ativo</span>
+            <span className="font-ui text-[10px] text-emerald-400 font-bold">SENTINELA</span>
           </div>
         </div>
         <div className="text-left">
-          <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">Tempo de Resposta</p>
+          <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">Monitoramento</p>
           <div className="flex items-baseline gap-3">
-            <span className="font-display text-2xl font-bold text-white tracking-tight">0.03s</span>
-            <span className="font-ui text-[10px] text-emerald-400 font-bold">- 12%</span>
+            <span className="font-display text-2xl font-bold text-white tracking-tight uppercase">Real-time</span>
+            <span className="font-ui text-[10px] text-cobalt font-bold">GLOBAL</span>
           </div>
         </div>
       </div>
@@ -311,16 +311,16 @@ const StatsSection = () => (
   <section className="py-24 md:py-32 px-6 md:px-16 bg-black">
     <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
       <div className="flex-1 text-left">
-        <p className="font-ui text-[11px] font-bold tracking-[0.3em] uppercase text-cobalt mb-6">Segurança em números</p>
+        <p className="font-ui text-[11px] font-bold tracking-[0.3em] uppercase text-cobalt mb-6">Padrão de Excelência</p>
         <h2 className="font-display text-5xl md:text-7xl text-white mb-16">
-          Resultados que<br /><span className="text-cobalt italic">falam por si.</span>
+          Compromisso com a<br /><span className="text-cobalt italic">Performance.</span>
         </h2>
         <div className="grid grid-cols-2 gap-6">
           {[
-            { val: "+99.9%", label: "Ameaças bloqueadas com sucesso" },
-            { val: "0.03s", label: "Tempo médio de resposta" },
-            { val: "24/7", label: "Monitoramento contínuo" },
-            { val: "150+", label: "Empresas protegidas" },
+            { val: "100%", label: "Foco em Disponibilidade" },
+            { val: "Zero", label: "Tolerância a Vulnerabilidades" },
+            { val: "24/7", label: "Vigilância Ininterrupta" },
+            { val: "Elite", label: "Engenharia de Segurança" },
           ].map((stat) => (
             <div key={stat.label} className="glass-card p-8 border-white/5 rounded-lg">
               <div className="font-display text-3xl font-bold text-white mb-2">{stat.val}</div>
@@ -371,14 +371,14 @@ const MapSection = () => (
           ))}
         </ul>
       </div>
-      <div className="flex-1 relative w-full h-[600px] flex items-center justify-center">
+      <div className="flex-1 relative w-full h-[400px] md:h-[600px] flex items-center justify-center">
         <GlobeMap />
         
         <div className="absolute bottom-10 right-10 glass-card p-6 border-white/10 rounded-sm z-20 animate-flicker">
-          <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">Ataques bloqueados hoje</p>
+          <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">Estado do Sistema</p>
           <div className="flex items-baseline gap-3">
-            <span className="font-display text-2xl font-bold text-white tracking-tight">1.248.309</span>
-            <span className="font-ui text-[10px] text-emerald-400 font-bold">+ 15%</span>
+            <span className="font-display text-2xl font-bold text-white tracking-tight uppercase">Operacional</span>
+            <span className="font-ui text-[10px] text-emerald-400 font-bold">100%</span>
           </div>
         </div>
       </div>
