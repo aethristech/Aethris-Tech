@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
-import Image from "next/image";
 
 const GlobeMap = dynamic(() => import('@/components/GlobeMap'), { 
   ssr: false,

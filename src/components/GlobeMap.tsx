@@ -3,6 +3,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 
+interface ArcData {
+  startLat: number;
+  startLng: number;
+  endLat: number;
+  endLng: number;
+  color: string[];
+}
+
 // Dynamic import for Globe to avoid SSR issues
 const Globe = dynamic(() => import('react-globe.gl'), { 
   ssr: false,
@@ -10,8 +18,8 @@ const Globe = dynamic(() => import('react-globe.gl'), {
 });
 
 const GlobeMap = () => {
-  const globeRef = useRef();
-  const [arcsData, setArcsData] = useState([]);
+  const globeRef = useRef<any>(null);
+  const [arcsData, setArcsData] = useState<ArcData[]>([]);
 
   useEffect(() => {
     // Sample data for cybersecurity arcs
@@ -57,7 +65,6 @@ const GlobeMap = () => {
         // Atmosphere
         showAtmosphere={true}
         atmosphereColor="#2E5BFF"
-        atmosphereDaylightAlpha={0.1}
       />
     </div>
   );
