@@ -45,7 +45,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
         />
       </head>
-      <body suppressHydrationWarning className="antialiased">
+      <body suppressHydrationWarning className="antialiased overflow-x-hidden w-full relative">
         <LanguageProvider>
           {children}
         </LanguageProvider>

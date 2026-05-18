@@ -411,7 +411,7 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 px-6 md:px-16 bg-black content-visibility-auto">
+    <section className="py-24 md:py-32 px-6 md:px-16 bg-black content-visibility-auto overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
         <div className="flex-1 text-left">
           <p className="font-ui text-[11px] font-bold tracking-[0.3em] uppercase text-cobalt mb-6">{t("stats.badge")}</p>
@@ -684,7 +684,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-bg-aether antialiased">
+    <div className="bg-bg-aether antialiased overflow-x-hidden w-full relative">
       <Navbar />
       <main>
         <Hero />
