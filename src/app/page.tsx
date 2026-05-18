@@ -528,9 +528,10 @@ const Sectors = () => {
 const Products = () => {
   const { t } = useLanguage();
 
-  const productsList = [
-    { title: "Sentinela AI", desc: t("products.item1.desc"), status: "Beta" },
-    { title: "CYSA - Cyber Security & Assurance", desc: t("products.item2.desc"), status: t("products.coming") }
+  const cysaFeatures = [
+    { title: t("products.cysa.feat1.title"), desc: t("products.cysa.feat1.desc") },
+    { title: t("products.cysa.feat2.title"), desc: t("products.cysa.feat2.desc") },
+    { title: t("products.cysa.feat3.title"), desc: t("products.cysa.feat3.desc") }
   ];
 
   return (
@@ -545,19 +546,34 @@ const Products = () => {
         <h2 className="reveal font-display text-5xl md:text-8xl font-light leading-[1.05] text-white mb-16">
           {t("products.title1")}<br /><span className="italic text-cobalt">{t("products.title2")}</span>
         </h2>
-        <div className="reveal grid grid-cols-1 md:grid-cols-2 gap-12">
-          {productsList.map((prod) => (
-            <div key={prod.title} className="group glass-card p-12 rounded-sm relative overflow-hidden transition-all hover:border-cobalt/50 shadow-2xl">
-              <div className="flex justify-between items-start mb-8">
-                <span className="font-ui text-[10px] font-black uppercase tracking-widest px-4 py-2 bg-cobalt text-white shadow-[0_0_15px_rgba(46,91,255,0.4)]">{prod.status}</span>
-                <i className="ti ti-arrow-up-right text-3xl opacity-0 group-hover:opacity-100 text-cobalt transition-all translate-y-2 group-hover:translate-y-0" />
-              </div>
-              <h3 className="font-display text-4xl font-medium mb-6 text-white group-hover:text-cobalt transition-colors duration-500">{prod.title}</h3>
-              <p className="font-body text-lg text-white/60 leading-relaxed opacity-80 group-hover:text-white/80 transition-colors">{prod.desc}</p>
-              <div className="mt-10 h-[1px] w-full bg-white/5 group-hover:bg-gradient-to-r group-hover:from-cobalt group-hover:to-transparent" />
+        
+        <div className="reveal max-w-4xl mx-auto">
+          <div className="group glass-card p-10 md:p-14 rounded-lg relative overflow-hidden transition-all hover:border-cobalt/40 shadow-2xl bg-white/5 border border-white/5">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-10">
+              <span className="font-ui text-[10px] font-black uppercase tracking-widest px-4 py-2 bg-cobalt text-white shadow-[0_0_15px_rgba(46,91,255,0.4)]">
+                {t("products.active_status")}
+              </span>
+              <a href="https://wa.me/244942766486" target="_blank" rel="noopener noreferrer" className="text-cobalt hover:text-white transition-colors flex items-center gap-2 font-ui text-xs font-bold uppercase tracking-widest no-underline group-hover:translate-x-1 duration-300">
+                {t("products.request_demo")} <i className="ti ti-arrow-up-right text-lg" />
+              </a>
             </div>
-          ))}
+            <h3 className="font-display text-4xl md:text-5xl font-medium mb-6 text-white group-hover:text-cobalt transition-colors duration-500">
+              CYSA - Cyber Security & Assurance
+            </h3>
+            <p className="font-body text-base md:text-lg text-white/60 leading-relaxed group-hover:text-white/80 transition-colors mb-10 max-w-3xl">
+              {t("products.item2.desc")}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 pt-10 border-t border-white/10">
+              {cysaFeatures.map((feat, i) => (
+                <div key={i} className="text-left">
+                  <h4 className="font-ui text-xs font-bold uppercase tracking-wider text-white mb-2">{feat.title}</h4>
+                  <p className="font-body text-xs text-white/40 leading-relaxed">{feat.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+        
         <div className="reveal mt-16 text-center">
           <p className="font-display italic text-2xl text-black">{t("products.footer")}</p>
         </div>

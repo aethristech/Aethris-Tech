@@ -508,20 +508,50 @@ export const translations: Translation = {
     en: "Products",
     fr: "Produits"
   },
-  "products.item1.desc": {
-    pt: "Plataforma de monitorização e defesa de rede baseada em IA que antecipa ataques antes que aconteçam.",
-    en: "AI-based network monitoring and defense platform that anticipates attacks before they happen.",
-    fr: "Plateforme de surveillance et de défense réseau basée sur l'IA qui anticipe les attaques avant qu'elles ne surviennent."
-  },
   "products.item2.desc": {
     pt: "Solução integral de defesa digital, conformidade e garantia de risco para infraestruturas críticas.",
     en: "Comprehensive digital defense, compliance, and risk assurance solution for critical infrastructure.",
     fr: "Solution complète de défense numérique, de conformité et d'assurance des risques pour les infrastructures critiques."
   },
-  "products.coming": {
-    pt: "Em Breve",
-    en: "Coming Soon",
-    fr: "Bientôt"
+  "products.active_status": {
+    pt: "Sistema Ativo",
+    en: "Active System",
+    fr: "Système Actif"
+  },
+  "products.request_demo": {
+    pt: "Solicitar Demonstração",
+    en: "Request Demo",
+    fr: "Demander une Démo"
+  },
+  "products.cysa.feat1.title": {
+    pt: "Auditoria Contínua",
+    en: "Continuous Audit",
+    fr: "Audit Continu"
+  },
+  "products.cysa.feat1.desc": {
+    pt: "Avaliação em tempo real da integridade dos sistemas organizacionais.",
+    en: "Real-time evaluation of organizational systems' integrity.",
+    fr: "Évaluation en temps réel de l'intégrité des systèmes organisationnels."
+  },
+  "products.cysa.feat2.title": {
+    pt: "Garantia de Risco",
+    en: "Risk Assurance",
+    fr: "Assurance des Risques"
+  },
+  "products.cysa.feat2.desc": {
+    pt: "Mitigação e mapeamento estratégico de potenciais vetores de vulnerabilidade.",
+    en: "Mitigation and strategic mapping of potential vulnerability vectors.",
+    fr: "Atténuation et cartographie stratégique des vecteurs potentiels de vulnérabilité."
+  },
+  "products.cysa.feat3.title": {
+    pt: "Conformidade Rígida",
+    en: "Rigid Compliance",
+    fr: "Conformité Stricte"
+  },
+  "products.cysa.feat3.desc": {
+    pt: "Adequação integral às normas e padrões internacionais de defesa digital.",
+    en: "Full alignment with international digital defense standards and norms.",
+    fr: "Alignement total avec les normes et standards internationaux de défense numérique."
   },
   "products.footer": {
     pt: "A inovação de classe mundial nasce aqui.",
