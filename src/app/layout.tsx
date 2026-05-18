@@ -23,6 +23,8 @@ const syne = Syne({
   display: "swap",
 });
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export const metadata: Metadata = {
   title: "Aethris Tech",
   description:
@@ -43,7 +45,11 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
         />
       </head>
-      <body suppressHydrationWarning className="antialiased">{children}</body>
+      <body suppressHydrationWarning className="antialiased">
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }
