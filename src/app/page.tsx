@@ -145,18 +145,18 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 md:px-16 py-6 md:py-8 bg-black/40 backdrop-blur-3xl border-b border-white/5 transition-all">
-      <a href="#hero" className="flex items-center gap-6 no-underline group">
+    <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-4 md:px-16 py-4 md:py-8 bg-black/40 backdrop-blur-3xl border-b border-white/5 transition-all">
+      <a href="#hero" className="flex items-center gap-2 md:gap-6 no-underline group">
         <div 
-          className="relative w-20 h-20 group-hover:scale-105 transition-transform bg-gradient-to-br from-cobalt to-cyan-400"
+          className="relative w-12 h-12 md:w-20 md:h-20 group-hover:scale-105 transition-transform bg-gradient-to-br from-cobalt to-cyan-400"
           style={{ maskImage: "url(/logo.png)", maskSize: "contain", maskRepeat: "no-repeat", WebkitMaskImage: "url(/logo.png)", WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat" }}
         />
         <div className="flex flex-col">
-          <span className="font-display font-bold text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-cobalt-light to-white">Aethris Tech</span>
+          <span className="font-display font-bold text-xl md:text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-cobalt-light to-white">Aethris Tech</span>
         </div>
       </a>
       
-      <div className="flex items-center gap-6 md:gap-10">
+      <div className="flex items-center gap-2 md:gap-6">
         <ul className="hidden lg:flex gap-10 list-none m-0 p-0">
           {navItems.map((item) => (
             <li key={item.key}>
@@ -173,20 +173,20 @@ const Navbar = () => {
           <button 
             onClick={() => setDropdownOpen(!dropdownOpen)}
             onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
-            className="flex items-center gap-2 font-ui text-[11px] font-bold tracking-[0.1em] uppercase border border-white/10 text-white/80 px-4 py-2 rounded-sm bg-white/5 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md"
+            className="flex items-center gap-1.5 font-ui text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase border border-white/10 text-white/80 px-2.5 py-1.5 md:px-4 md:py-2 rounded-sm bg-white/5 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md"
           >
-            <i className="ti ti-world text-sm text-cobalt" />
+            <i className="ti ti-world text-xs md:text-sm text-cobalt" />
             <span>{language.toUpperCase()}</span>
-            <i className={`ti ti-chevron-down text-[9px] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+            <i className={`ti ti-chevron-down text-[8px] md:text-[9px] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
           </button>
           
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-36 bg-black/90 border border-white/10 backdrop-blur-2xl rounded-sm shadow-2xl p-1 z-50 flex flex-col gap-1">
+            <div className="absolute right-0 mt-2 w-32 md:w-36 bg-black/90 border border-white/10 backdrop-blur-2xl rounded-sm shadow-2xl p-1 z-50 flex flex-col gap-1">
               {(['pt', 'en', 'fr'] as const).map((lang) => (
                 <button
                   key={lang}
                   onClick={() => setLanguage(lang)}
-                  className={`w-full text-left font-ui text-[10px] font-bold tracking-[0.1em] uppercase px-4 py-2 rounded-sm transition-all ${
+                  className={`w-full text-left font-ui text-[9px] md:text-[10px] font-bold tracking-[0.1em] uppercase px-3 py-1.5 md:px-4 md:py-2 rounded-sm transition-all ${
                     language === lang 
                       ? 'bg-cobalt text-white' 
                       : 'text-white/60 hover:bg-white/5 hover:text-white'
@@ -199,7 +199,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <a href="https://wa.me/244942766486" className="font-ui text-[11px] font-bold tracking-[0.1em] uppercase border border-white/20 text-white px-6 md:px-8 py-3 rounded-sm hover:bg-white hover:text-black transition-all backdrop-blur-md whitespace-nowrap">
+        <a href="https://wa.me/244942766486" className="font-ui text-[9px] md:text-[11px] font-bold tracking-[0.1em] uppercase border border-white/20 text-white px-3.5 py-2 md:px-8 md:py-3 rounded-sm hover:bg-white hover:text-black transition-all backdrop-blur-md whitespace-nowrap">
           {t("nav.cta")}
         </a>
       </div>
