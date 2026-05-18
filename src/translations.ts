@@ -514,14 +514,14 @@ export const translations: Translation = {
     fr: "Solution complète de défense numérique, de conformité et d'assurance des risques pour les infrastructures critiques."
   },
   "products.active_status": {
-    pt: "Sistema Ativo",
-    en: "Active System",
-    fr: "Système Actif"
+    pt: "Em Desenvolvimento",
+    en: "Under Development",
+    fr: "En Développement"
   },
   "products.request_demo": {
-    pt: "Solicitar Demonstração",
-    en: "Request Demo",
-    fr: "Demander une Démo"
+    pt: "Entrar na Lista de Espera",
+    en: "Join Waitlist",
+    fr: "Rejoindre la Liste"
   },
   "products.cysa.feat1.title": {
     pt: "Auditoria Contínua",

@@ -243,7 +243,7 @@ const Hero = () => {
             <p className="font-ui text-[9px] font-bold uppercase tracking-widest text-white/40 mb-2">{t("hero.stat1.title")}</p>
             <div className="flex items-baseline gap-3">
               <span className="font-display text-2xl font-bold text-white tracking-tight uppercase">{t("hero.stat1.val")}</span>
-              <span className="font-ui text-[10px] text-emerald-400 font-bold">SENTINELA</span>
+              <span className="font-ui text-[10px] text-emerald-400 font-bold">CYSA CORE</span>
             </div>
           </div>
           <div className="text-left">
